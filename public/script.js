@@ -117,6 +117,7 @@ const closeCraftDialog = () => {
 const resetCraftForm = () => {
   document.getElementById("add-craft-form").reset();
   document.getElementById("supplies-container").innerHTML = "";
+  document.getElementById("img-prev").src = "";
 };
 
 const addCraft = async () => {
@@ -134,7 +135,7 @@ const addCraft = async () => {
     const newCraft = await response.json();
     resetCraftForm();
     closeCraftDialog();
-    showCrafts();
+    appendCraftToList(newCraft);
   } else {
     console.error("Failed to add craft");
   }
@@ -159,4 +160,18 @@ document.getElementById("craft-img").onchange = (e) => {
   document.getElementById("img-prev").src = URL.createObjectURL(
     e.target.files.item(0)
   );
+};
+
+const appendCraftToList = (craft) => {
+  let craftsDiv = document.getElementById("crafts-container");
+
+  let column = document.createElement("div");
+  column.classList.add("column");
+  craftsDiv.appendChild(column);
+
+  let img = document.createElement("img");
+  column.appendChild(img);
+  img.src = `/images/${craft.image}`;
+  img.alt = craft.name;
+  img.onclick = () => showModal(craft);
 };
