@@ -145,3 +145,13 @@ const addCraft = async () => {
     console.error("Failed to add craft");
   }
 };
+
+document.getElementById("craft-img").onchange = (e) => {
+  if (!e.target.files.length) {
+    document.getElementById("img-prev").src = "";
+    return;
+  }
+  document.getElementById("img-prev").src = URL.createObjectURL(
+    e.target.files.item(0)
+  );
+};
