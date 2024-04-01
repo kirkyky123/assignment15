@@ -65,28 +65,23 @@ const getJSON = async () => {
 window.onload = () => {
   showCrafts();
 
-  // Open craft dialog when '+' link is clicked
   document.getElementById("add-craft-link").onclick = () => openCraftDialog();
 
-  // Form submission event listener
   document.getElementById("add-craft-form").onsubmit = async (e) => {
     e.preventDefault();
     await addCraft();
   };
 
-  // Add supply event listener
   document.getElementById("add-supply").onclick = (e) => {
     e.preventDefault();
     addSupplyInput();
   };
 
-  // Cancel button event listener
   document.getElementById("cancel-btn").onclick = (e) => {
     e.preventDefault();
     closeCraftDialog();
   };
 
-  // Reset form and close dialog when the dialog is closed
   document.getElementById("craft-dialog").addEventListener('click', (e) => {
     if (e.target === document.getElementById("craft-dialog")) {
       resetCraftForm();
@@ -121,7 +116,7 @@ const addSupplyInput = () => {
 const addCraft = async () => {
   const form = document.getElementById("add-craft-form");
   const formData = new FormData(form);
-  const response = await fetch("/api/addCraft", {
+  const response = await fetch("/api/crafts", {
     method: "POST",
     body: formData,
   });
@@ -129,7 +124,6 @@ const addCraft = async () => {
     const newCraft = await response.json();
     resetCraftForm();
     closeCraftDialog();
-    // Refresh crafts after adding a new one
     showCrafts();
   } else {
     console.error("Failed to add craft");
