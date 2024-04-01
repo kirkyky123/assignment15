@@ -1,25 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Crafts</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
+
 <body>
-  <h1>Buy and Sell Crafts <a href="#" id="add-craft-link">+</a></h1>
+  <h1>Buy and Sell Crafts <span href="#" id="add-craft-link">+</span></h1>
   <div class="row" id="crafts-container"></div>
 
-  <div id="modal" class="modal">
-    <div id="modal-content" class="modal-content"></div>
-  </div>
-
-  <!-- The dialog for adding a new craft -->
-  <div id="craft-dialog" class="w3-modal">
-    <div class="w3-modal-content">
-      <div class="w3-container">
-        <span onclick="document.getElementById('craft-dialog').style.display='none'"
-              class="w3-button w3-display-topright">&times;</span>
+  <div id="craft-dialog" class="modal">
+    <div class="modal-content">
+      <div class="modal-left">
+        <span onclick="closeCraftDialog()" class="close">&times;</span>
         <section id="craft-form">
           <form id="add-craft-form">
             <p>
@@ -33,9 +30,10 @@
             <p>
               <label for="craft-img">Select An Image:</label>
               <input type="file" id="craft-img" name="image" accept="image/*">
+              <img id="img-prev">
             </p>
             <p>
-              <label for="craft-supplies">Supplies:</label>
+              <label for="craft-supplies">Supplies:</label><br>
               <input type="text" id="craft-supplies" name="supplies" required>
               <a href="#" id="add-supply">Add Supply</a>
             </p>
@@ -50,6 +48,11 @@
     </div>
   </div>
 
+  <div id="modal" class="modal">
+    <div id="modal-content" class="modal-content"></div>
+  </div>
+
   <script src="script.js"></script>
 </body>
+
 </html>

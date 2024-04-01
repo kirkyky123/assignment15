@@ -88,19 +88,32 @@ window.onload = () => {
       closeCraftDialog();
     }
   });
+
+  animateAddCraftLink();
+};
+
+const animateAddCraftLink = () => {
+  const addCraftLink = document.getElementById("add-craft-link");
+  addCraftLink.classList.add("animate__animated", "animate__pulse");
+  setTimeout(() => {
+    addCraftLink.classList.remove("animate__animated", "animate__pulse");
+  }, 1000);
 };
 
 const openCraftDialog = () => {
-  document.getElementById("craft-dialog").style.display = "block";
+  const modal = document.getElementById("craft-dialog");
+  modal.style.display = "block";
 };
 
 const closeCraftDialog = () => {
-  document.getElementById("craft-dialog").style.display = "none";
+  const modal = document.getElementById("craft-dialog");
+  modal.style.display = "none";
 };
 
 const resetCraftForm = () => {
   document.getElementById("add-craft-form").reset();
   document.getElementById("supplies-container").innerHTML = '';
+  document.getElementById("img-prev").src = "";
 };
 
 const addSupplyInput = () => {
@@ -128,4 +141,14 @@ const addCraft = async () => {
   } else {
     console.error("Failed to add craft");
   }
+};
+
+document.getElementById("craft-img").onchange = (e) => {
+  if (!e.target.files.length) {
+    document.getElementById("img-prev").src = "";
+    return;
+  }
+  document.getElementById("img-prev").src = URL.createObjectURL(
+    e.target.files.item(0)
+  );
 };
