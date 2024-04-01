@@ -64,4 +64,74 @@ const getJSON = async () => {
 
 window.onload = () => {
   showCrafts();
+
+  // Open craft dialog when '+' link is clicked
+  document.getElementById("add-craft-link").onclick = () => openCraftDialog();
+
+  // Form submission event listener
+  document.getElementById("add-craft-form").onsubmit = async (e) => {
+    e.preventDefault();
+    await addCraft();
+  };
+
+  // Add supply event listener
+  document.getElementById("add-supply").onclick = (e) => {
+    e.preventDefault();
+    addSupplyInput();
+  };
+
+  // Cancel button event listener
+  document.getElementById("cancel-btn").onclick = (e) => {
+    e.preventDefault();
+    closeCraftDialog();
+  };
+
+  // Reset form and close dialog when the dialog is closed
+  document.getElementById("craft-dialog").addEventListener('click', (e) => {
+    if (e.target === document.getElementById("craft-dialog")) {
+      resetCraftForm();
+      closeCraftDialog();
+    }
+  });
+};
+
+const openCraftDialog = () => {
+  document.getElementById("craft-dialog").style.display = "block";
+};
+
+const closeCraftDialog = () => {
+  document.getElementById("craft-dialog").style.display = "none";
+};
+
+const resetCraftForm = () => {
+  document.getElementById("add-craft-form").reset();
+  document.getElementById("supplies-container").innerHTML = '';
+};
+
+const addSupplyInput = () => {
+  const suppliesContainer = document.getElementById("supplies-container");
+  const input = document.createElement("input");
+  input.type = "text";
+  input.name = "supplies";
+  input.required = true;
+  suppliesContainer.appendChild(input);
+  suppliesContainer.appendChild(document.createElement("br"));
+};
+
+const addCraft = async () => {
+  const form = document.getElementById("add-craft-form");
+  const formData = new FormData(form);
+  const response = await fetch("/api/addCraft", {
+    method: "POST",
+    body: formData,
+  });
+  if (response.ok) {
+    const newCraft = await response.json();
+    resetCraftForm();
+    closeCraftDialog();
+    // Refresh crafts after adding a new one
+    showCrafts();
+  } else {
+    console.error("Failed to add craft");
+  }
 };

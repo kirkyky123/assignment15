@@ -76,6 +76,62 @@
   width: 80%;
 }
 
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  position: relative;
+}
+
+.close {
+  color: #aaa;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+}
+
+.modal-title {
+  text-align: center;
+}
+
+.image-section {
+  text-align: center;
+}
+
+#preview-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+label {
+  margin-bottom: 5px;
+}
+
+button {
+  margin-top: 10px;
+}
+
 @media (max-width: 800px) {
   .column {
     flex: 0 0 50%;
