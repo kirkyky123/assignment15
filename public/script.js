@@ -88,32 +88,35 @@ window.onload = () => {
       closeCraftDialog();
     }
   });
-
-  animateAddCraftLink();
+animateAddCraftLink();
 };
 
 const animateAddCraftLink = () => {
   const addCraftLink = document.getElementById("add-craft-link");
-  addCraftLink.classList.add("animate__animated", "animate__pulse");
+  addCraftLink.classList.add("animate-fadeIn");
   setTimeout(() => {
-    addCraftLink.classList.remove("animate__animated", "animate__pulse");
+    addCraftLink.classList.remove("animate-fadeIn");
   }, 1000);
 };
 
 const openCraftDialog = () => {
   const modal = document.getElementById("craft-dialog");
   modal.style.display = "block";
+  modal.classList.add("animate-fadeIn");
 };
 
 const closeCraftDialog = () => {
   const modal = document.getElementById("craft-dialog");
-  modal.style.display = "none";
+  modal.classList.add("animate-fadeOut");
+  setTimeout(() => {
+    modal.style.display = "none";
+    modal.classList.remove("animate-fadeOut");
+  }, 500);
 };
 
 const resetCraftForm = () => {
   document.getElementById("add-craft-form").reset();
   document.getElementById("supplies-container").innerHTML = '';
-  document.getElementById("img-prev").src = "";
 };
 
 const addSupplyInput = () => {
@@ -141,14 +144,4 @@ const addCraft = async () => {
   } else {
     console.error("Failed to add craft");
   }
-};
-
-document.getElementById("craft-img").onchange = (e) => {
-  if (!e.target.files.length) {
-    document.getElementById("img-prev").src = "";
-    return;
-  }
-  document.getElementById("img-prev").src = URL.createObjectURL(
-    e.target.files.item(0)
-  );
 };
