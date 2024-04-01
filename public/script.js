@@ -82,13 +82,13 @@ window.onload = () => {
     closeCraftDialog();
   };
 
-  document.getElementById("craft-dialog").addEventListener('click', (e) => {
+  document.getElementById("craft-dialog").addEventListener("click", (e) => {
     if (e.target === document.getElementById("craft-dialog")) {
       resetCraftForm();
       closeCraftDialog();
     }
   });
-animateAddCraftLink();
+  animateAddCraftLink();
 };
 
 const animateAddCraftLink = () => {
@@ -116,22 +116,16 @@ const closeCraftDialog = () => {
 
 const resetCraftForm = () => {
   document.getElementById("add-craft-form").reset();
-  document.getElementById("supplies-container").innerHTML = '';
-};
-
-const addSupplyInput = () => {
-  const suppliesContainer = document.getElementById("supplies-container");
-  const input = document.createElement("input");
-  input.type = "text";
-  input.name = "supplies";
-  input.required = true;
-  suppliesContainer.appendChild(input);
-  suppliesContainer.appendChild(document.createElement("br"));
+  document.getElementById("supplies-container").innerHTML = "";
 };
 
 const addCraft = async () => {
   const form = document.getElementById("add-craft-form");
   const formData = new FormData(form);
+
+  const supplies = Array.from(form.querySelectorAll('[data-supply]')).map(input => input.value.trim());
+  formData.append('supplies', supplies.join(','));
+
   const response = await fetch("/api/crafts", {
     method: "POST",
     body: formData,
@@ -145,6 +139,17 @@ const addCraft = async () => {
     console.error("Failed to add craft");
   }
 };
+
+
+const addSupplyInput = () => {
+  const suppliesContainer = document.getElementById("supplies-container");
+  const input = document.createElement("input");
+  input.type = "text";
+  input.dataset.supply = true;
+  suppliesContainer.appendChild(input);
+  suppliesContainer.appendChild(document.createElement("br"));
+};
+
 
 document.getElementById("craft-img").onchange = (e) => {
   if (!e.target.files.length) {

@@ -4,7 +4,6 @@ const fs = require('fs');
 const cors = require('cors');
 const multer = require('multer');
 const Joi = require('joi');
-const async = require('async');
 
 app.use(cors());
 app.use(express.static("public"));
